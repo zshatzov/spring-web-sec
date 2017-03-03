@@ -35,8 +35,17 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-validation')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
+	compile group: 'com.h2database', name: 'h2', version: '1.4.193'	
 	runtime('org.postgresql:postgresql')
 	runtime group: 'org.thymeleaf', name: 'thymeleaf-spring4'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-3'
+}
+
+task prodProfile << {
+	bootRun.systemProperty 'spring.profiles.active', 'prod'
+}
+
+task devProfile << {
+	bootRun.systemProperty 'spring.profiles.active', 'dev'
 }
