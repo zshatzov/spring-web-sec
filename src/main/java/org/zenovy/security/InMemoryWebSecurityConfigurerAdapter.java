@@ -10,13 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Profile("dev")
 @EnableWebSecurity
-public class InmemoryWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+public class InMemoryWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-	public InmemoryWebSecurityConfigurerAdapter() {
+	public InMemoryWebSecurityConfigurerAdapter() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InmemoryWebSecurityConfigurerAdapter(boolean disableDefaults) {
+	public InMemoryWebSecurityConfigurerAdapter(boolean disableDefaults) {
 		super(disableDefaults);
 		// TODO Auto-generated constructor stub
 	}
