@@ -6,9 +6,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
+import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.web.servlet.MockMvc
@@ -36,7 +36,8 @@ class WebControllerSpec extends Specification{
 	def 'make sure admin user can navigate to admin page'(){
 		expect:
 			mockMvc.perform(get('/admin'))
-				.andExpect(status().isOk())			
+				.andExpect(status().isOk())	
+				.andExpect(content().contentType(MediaType.TEXT_HTML.toString()+';charset=UTF-8'))		
 				.andExpect(view().name('admin'))			
 	} 
 }
