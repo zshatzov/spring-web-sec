@@ -21,6 +21,7 @@ public class InMemoryWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 	@Inject
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
@@ -34,6 +35,7 @@ public class InMemoryWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 		http.authorizeRequests()			
 			.antMatchers("/", "/home").permitAll()
 			.antMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
+			.antMatchers("/welcome").hasRole("USER").anyRequest().authenticated()
 			.and()
 			.formLogin().loginPage("/login").permitAll()
 			.and()
