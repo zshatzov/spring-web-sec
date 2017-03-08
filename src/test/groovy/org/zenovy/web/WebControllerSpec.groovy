@@ -59,7 +59,7 @@ class WebControllerSpec extends Specification{
 				res.andExpect(unauthenticated())
 	}
 	
-	@WithMockUser(username='jack', password= 'jack', roles= ['USER', 'ADMIN'])
+	@WithMockUser(username='joe', password= 'doe', roles= ['USER', 'ADMIN'])
 	def 'user with role ADMIN should be able to access admin page'(){
 		given:
 			Authentication authentication = SecurityContextHolder.context.authentication
@@ -71,7 +71,7 @@ class WebControllerSpec extends Specification{
 				.andExpect(view().name('admin'))
 	}
 
-	@WithMockUser(username='john', password= 'john', roles= ['USER'])
+	@WithMockUser(username='frank', password= 'doe', roles= ['USER'])
 	def 'user with role USER should not be able to access admin page'(){
 		given:
 			Authentication authentication = SecurityContextHolder.context.authentication
