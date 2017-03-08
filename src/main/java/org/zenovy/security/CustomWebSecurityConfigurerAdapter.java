@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Profile("prod")
 @EnableWebSecurity
@@ -28,6 +31,13 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 		super(disableDefaults);
 	}
 	 	
+	@Bean
+	public CsrfTokenRepository csrfRepo(){
+		HttpSessionCsrfTokenRepository repo = new HttpSessionCsrfTokenRepository();
+		repo.setParameterName("_csrf");
+		repo.setHeaderName("X-CSRF-TOKEN");
+		return repo;
+	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,7 +51,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		super.configure(web);	
-//		web.debug(true);
+		web.debug(true);
 	}
 
 	@Override
@@ -52,7 +62,10 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 			.and()
 			.formLogin().loginPage("/login").permitAll()
 			.and()
-			.logout().permitAll();
+			.logout().permitAll()
+			.and()
+			.csrf().csrfTokenRepository(csrfRepo());
+		
 		
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
