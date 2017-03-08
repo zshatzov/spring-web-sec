@@ -51,7 +51,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		super.configure(web);	
-		web.debug(true);
+//		web.debug(true);
 	}
 
 	@Override
